@@ -1,0 +1,19 @@
+7-BIT HAMMING CODE GUIDE!
+
+Simple HC Generator:
+1.	It accepts 4 message bits 
+2.	a parity scheme and 
+3.	Provides Results in 7-bit HC.
+
+Error Handling:
+It also include an error detection and correction module which display message in both case but if there is error
+Then it automatically Correct the error and also show the bit number (from right) effected.
+
+1.	Accepts 7 bit HC
+2.	Parity Scheme (Even or Odd)
+3.	Generates results
+
+
+
+[ABDUL MATEEN Department of Computer Science GC1 DIKHAN]
+[contact at mateen9194@gmail.com for any suggestions]
