@@ -1,0 +1,85 @@
+ Hamming Code
+	Error detection and correction scheme based on redundancy system.
+	These codes were originally designed with dmin = 3, which means that they can detect up to 
+	two errors or correct one single error. 
+	Although there are some Hamming codes that can correct more than one error. 
+	The relationship between n and k in a Hamming code. 
+	We need to choose an integer m >= 3. The values of n and k are then calculated from m as
+	n = 2m - 1 and k = n - m. The number of check bits r =m.
+
+ Burst bit correction
+	A Hamming code can only correct a single error or detect a double error. 
+	However, there is a way to make it detect a burst error. 
+	In data communications, we normally send a packet or a frame of data. 
+	To make the Hamming code respond to a burst error of size N, 
+	we need to make N codewords out of our frame. Then, instead of sending one codeword at a 
+	time, we arrange the codewords in a table and send the bits in the table a column at a time.
+
+ Single Bit Correction
+	The hamming code for correcting single bit error is based on 7-bit encoding scheme which 
+	consists of data bits and parity bits. 
+	In 7-bit encoding there 4 data bits and 3 parity bits. This can be represented as,
+
+	D7	D6	D5	P4	D3	P2	P1
+
+ Association of parity bit
+	The association of parity bit defines which parity bit would be used against the data bits. 
+	This can be calculated by the formula/pattern that the subscript value of parity bit 
+	determines the number of data bits to be checked or skipped.
+
+ Associating parity bits
+
+ P1-parity bit 
+	If we have parity bit p1 then one bit is checked other is skipped starting from p1.
+
+	D7	D6	D5	P4	D3	P2	P1
+
+	This means that the parity bit p1 can be used with D3, D5 and D7 data bits.
+
+ P2-parity bit 
+	If we have parity bit p2 then two bits are checked and next two bits are skipped starting from p2 rather than p1.
+
+	D7	D6	D5	P4	D3	P2	P1
+	This means that the parity bit p2 can be used with D3, D6 and D7 data bits.
+
+P4-parity bit 
+	If we have parity bit p4 then four bits are checked while next four bits are skipped starting from p4 parity bit.
+				D7	D6	D5	P4	D3	P2	P1
+	In above diagram, the additional 4 columns with value  are inserted just for representation of bit association.
+	This means that the parity bit p4 can be used with D5, D6 and D7 data bits.
+
+
+ Error Detection
+	If sender wants to transmit data 1011 in 7-bit encoding using even parity then,
+	D7	D6	D5	P4	D3	P2	P1
+	1	0	1	P4	1	P2	P1
+
+	Now for parity bit values we check for parity bit association
+	
+	Parity		Data Units
+	P1 : | 1	| 1	1	1	|	D3 D5 D7
+	P2 : | 0	| 1	0	1	|	D3 D6 D7
+	P4 : | 0	| 1	0	1	|	D5 D6 D7
+
+	Now the data with parity bits to be transmitted will be,
+	1	0	1	0	1	0	1
+
+ Error Correction
+
+	The correction operation is performed on receiver side. Suppose that the received data has faced some interference and somehow altered. 
+	1	0	0	0	1	0	1
+	The receiver first perform error detection through parity association. The parity bit having error will be 1, otherwise 0.
+
+	Parity		Data Units
+	P1 : | 1	| 1	0	1	|	D3 D5 D7
+	P2 : | 0	| 1	0	1	|	D3 D6 D7
+	P4 : | 1	| 0	0	1	|	D5 D6 D7
+
+	To know exactly in which data bit D error occurred, we have to find decimal equivalent to parity bits. 
+	The decimal number will represents the changed data bit.
+		(p4 p2 p1)_2=(?)_10
+		( 1  0  1)_2= 5_10
+	This means that the data bit D5 is changed.
+	1	0	0	0	1	0	1	
+	Now, the corrected data will be,
+	1	0	1	0	1	0	1
